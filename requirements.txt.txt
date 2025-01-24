@@ -1,0 +1,10 @@
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.12.0
+pandas>=1.5.3
+numpy>=1.23.5
+scikit-learn>=1.2.2
+imbalanced-learn>=0.10.1
+matplotlib>=3.7.1
+evaluate>=0.4.0
+accelerate>=0.20.3
