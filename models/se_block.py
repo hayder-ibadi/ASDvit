@@ -1,18 +1,17 @@
-import torch.nn as nn
+import torch
 
-class SEBlock(nn.Module):
+class SEBlock(torch.nn.Module):
     def __init__(self, channel_num, reduction_ratio=16):
-        super().__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Sequential(
-            nn.Linear(channel_num, channel_num // reduction_ratio, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel_num // reduction_ratio, channel_num, bias=False),
-            nn.Sigmoid()
+        super(SEBlock, self).__init__()
+        self.avg_pool = torch.nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = torch.nn.Sequential(
+            torch.nn.Linear(channel_num, channel_num // reduction_ratio, bias=False),
+            torch.nn.ReLU(inplace=True),
+            torch.nn.Linear(channel_num // reduction_ratio, channel_num, bias=False),
+            torch.nn.Sigmoid()
         )
 
     def forward(self, x):
-        b, c, _, _ = x.size()
-        s = self.avg_pool(x).view(b, c)
-        z = self.fc(s).view(b, c, 1, 1)
+        s = self.avg_pool(x)
+        z = self.fc(s.squeeze(-1).unsqueeze(-1))
         return x * z
