@@ -1,27 +1,18 @@
 # Path configurations
-DATASET_PATH = "/home/necolas/Desktop/projects/dataset/AutismUpdated2/"
-MODEL_NAME = "google/vit-base-patch16-224-in21k"
-OUTPUT_DIR = "ViT16B-SE-Block-v2"
 
-# Training parameters
-TRAINING_ARGS = {
-    "output_dir": OUTPUT_DIR,
-    "num_train_epochs": 150,
-    "per_device_train_batch_size": 32,
-    "per_device_eval_batch_size": 8,
-    "learning_rate": 5e-6,
-    "weight_decay": 0.02,
-    "warmup_steps": 50,
-    "logging_dir": "./logs",
-    "evaluation_strategy": "epoch",
-    "save_strategy": "epoch",
-    "load_best_model_at_end": True,
-    "save_total_limit": 1,
-    "remove_unused_columns": False,
-    "report_to": "none"
-}
+model_str = "google-vit-base-patch16-224-in21k"  
+data_dir = 'Dataset'  # Path to the dataset
+model_name = "Saved Model Folder"
+num_train_epochs = 3
+learning_rate = 5e-6
+batch_size = 32  # Per device batch size
+weight_decay = 0.02
+warmup_steps = 50
+test_size = 0.05  # Test set size
+random_state = 83 # Random state for oversampling
 
-# Dataset parameters
-CLASS_LABELS = ['autistic', 'non_autistic']
-TEST_SIZE = 0.05
-RANDOM_STATE = 83
+
+# Define paths for saving models and logs
+output_dir = model_name
+logging_dir = './logs'
+best_model_path = os.path.join(model_name, "best_model")
